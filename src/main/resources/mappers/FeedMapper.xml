@@ -3,11 +3,11 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.greengramverp2.feed.FeedMapper">
 
-    <insert id="postFeed" keyProperty="userId" useGeneratedKeys="true">
+    <insert id="postFeed" keyProperty="feedId" useGeneratedKeys="true">
         INSERT INTO feed
-        (contents, location)
+        (user_id, contents, location)
         VALUE
-        (#{contents}, #{location})
+        (#{userId}, #{contents}, #{location})
     </insert>
 
     <insert id="postFeedPics">
@@ -20,17 +20,30 @@
     </insert>
 
     <select id="getFeed">
-        SELECT A.feed_id AS feedId, A.user_id AS userId, B.pic, B.nm A.contents, A.location, A.created_at AS createdAt
+        SELECT A.feed_id AS feedId, A.user_id AS userId,
+                B.pic, B.nm, A.contents, A.location, A.created_at AS createdAt
         FROM feed A
         INNER JOIN user B
         ON A.user_id=B.user_id
         ORDER BY A.created_at DESC
+        LIMIT #{startIdx}, #{length}
     </select>
 
-    <select id="getFeedPic">
+    <select id="getFeedPics">
         SELECT pic
-        FROM feed_pic A
-        INNER JOIN feed B
-        ON A.feed_id=B.feed_id
+        FROM feed_pics
+        WHERE feed_id=#{feedId}
+    </select>
+
+    <select id="getFeedCommentOnlyThree">
+        SELECT A.user_id AS userId, A.feed_id AS feedId,
+                A.comment, A.created_at AS createdAt, B.nm, B.pic
+        FROM comment A
+        INNER JOIN user B
+        ON A.user_id=B.user_id
+        WHERE feed_id=#{feedId}
+        ORDER BY A.created_at DESC
+        LIMIT 0, 4
+        <!--comment xml도 수정-->
     </select>
 </mapper>

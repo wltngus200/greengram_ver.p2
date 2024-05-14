@@ -43,9 +43,9 @@ public class UserService {
     }
     public ResAtSignIn getUserInfo(ReqAtSignIn p){
         User user=mapper.getUserInfo(p.getUid());
-        if(user==null){ throw new RuntimeException("펑");}
+        if(user==null){ throw new RuntimeException("아이디 펑 (∩^o^)⊃━☆");}
         else if(!BCrypt.checkpw(p.getUpw(),user.getUpw())){
-            throw new RuntimeException("비번 펑");
+            throw new RuntimeException("비밀번호 펑 (∩^o^)⊃━☆");
         }else {
             return ResAtSignIn.builder()
                     .userId(user.getUserId())

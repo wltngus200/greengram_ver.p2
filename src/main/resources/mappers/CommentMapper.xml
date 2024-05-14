@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.greengramverp2.feed_comment.CommentMapper">
+    <insert id="postComment" keyProperty="commentId" useGeneratedKeys="true">
+        INSERT INTO comment
+        (user_id, feed_id, comment)
+        VALUES
+        (#{userId}, #{feedId},#{comment})
+    </insert>
+
+    <select id="getComment">
+        SELECT A.user_id AS userId, A.feed_id AS feedId, A.comment,
+                A.created_at AS createdAt, B.nm, B.pic
+        FROM comment A
+        INNER JOIN user B
+        ON A.user_id=B.user_id
+        WHERE feed_id=#{feedId}
+        ORDER BY A.created_at DESC
+    </select>
+
+
+</mapper>

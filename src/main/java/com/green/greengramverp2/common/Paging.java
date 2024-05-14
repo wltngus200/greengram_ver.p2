@@ -15,7 +15,7 @@ public class Paging {
     private int length;
     private int page;
 
-    @ConstructorProperties({"page", "size"})
+    @ConstructorProperties({"page", "size"})//얜 뭐하는 애지
     public Paging(Integer page, Integer length){
         this.page = (page==null?1:page);
         this.length = (length==null?15:length);

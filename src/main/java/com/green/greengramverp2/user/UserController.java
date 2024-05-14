@@ -22,7 +22,7 @@ public class UserController {
         int result=service.postUser(pic, p);
         return ResultDto.<Integer>builder()
                 .statusCode(HttpStatus.OK)
-                .resultMsg("CLEAR")
+                .resultMsg("( ﾉ ﾟｰﾟ)ﾉ 얼쑤")
                 .resultData(result)
                 .build();
 
@@ -31,9 +31,11 @@ public class UserController {
     }
     @PostMapping("sign-in")
     public ResultDto<ResAtSignIn> getUserInfo(@RequestBody ReqAtSignIn p){
-        ////요기 마무리
+        ResAtSignIn result=service.getUserInfo(p);
         return ResultDto.<ResAtSignIn>builder()
-
+                .statusCode(HttpStatus.OK)
+                .resultMsg("로그인 펑 (∩^o^)⊃━☆")
+                .resultData(result)
                 .build();
     }
 
